@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import twitterLogo from './assets/twitter-logo.svg';
 import './App.css';
 
@@ -7,7 +7,7 @@ const TWITTER_HANDLE = 'gte539z';
 const TWITTER_LINK = `https://twitter.com/${TWITTER_HANDLE}`;
 
 const App = () => {
-    /*
+  /*
    * This function holds the logic for deciding if a Phantom Wallet is
    * connected or not
    */
@@ -38,7 +38,7 @@ const App = () => {
     window.addEventListener('load', onLoad);
     return () => window.removeEventListener('load', onLoad);
   }, []);
-  
+
   return (
     <div className="App">
       <div className="container">
