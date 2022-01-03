@@ -6,6 +6,15 @@ import './App.css';
 const TWITTER_HANDLE = 'gte539z';
 const TWITTER_LINK = `https://twitter.com/${TWITTER_HANDLE}`;
 
+const TEST_GIFS = [
+  'https://giphy.com/gifs/futurama-happy-new-year-years-eve-qgpO6MRDbGYuc',
+  'https://giphy.com/gifs/TdwziQPhbNAzK',
+  'https://giphy.com/gifs/stupid-futurama-fry-8iOzrJARYNURO',
+  'https://giphy.com/gifs/correct-technically-yes-14bDMRUYVrzOIo',
+  'https://giphy.com/gifs/futurama-funny-TLyhdPMHc7s7S',
+  'https://giphy.com/gifs/dancing-happy-post-az3XlqP9zQ9ry'
+]
+
 const App = () => {
 
   // State
