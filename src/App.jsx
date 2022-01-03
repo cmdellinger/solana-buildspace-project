@@ -82,6 +82,22 @@ const App = () => {
   );
 
   /*
+   * We want to render the gif grid if user has connected
+   * their wallet to our app.
+   */
+  const renderConnectedContainer = () => (
+    <div className="connected-container">
+      <div className="gif-grid">
+        {TEST_GIFS.map(gif => (
+          <div className="gif-item" key={gif}>
+            <img src={gif} alt={gif} />
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+
+  /*
    * When our component first mounts, let's check to see if we have a connected
    * Phantom Wallet
    */
@@ -98,12 +114,14 @@ const App = () => {
           {/* This was solely added for some styling fanciness */}
           <div className={walletAddress ? 'authed-container' : 'container'}>
         <div className="header-container">
-          <p className="header">🖼 GIF Portal</p>
+          <p className="header">Futurama GIF Portal</p>
           <p className="sub-text">
             View your GIF collection in the metaverse ✨
           </p>
           {/* Add the condition to show this only if we don't have a wallet address */}
           {!walletAddress && renderNotConnectedContainer()}
+          {/* We just need to add the inverse here! if wallet, render gif grid*/}
+          {walletAddress && renderConnectedContainer()}
         </div>
         <div className="footer-container">
           <img alt="Twitter Logo" className="twitter-logo" src={twitterLogo} />
