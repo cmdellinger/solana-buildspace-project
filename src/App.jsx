@@ -7,12 +7,12 @@ const TWITTER_HANDLE = 'gte539z';
 const TWITTER_LINK = `https://twitter.com/${TWITTER_HANDLE}`;
 
 const TEST_GIFS = [
-  'https://giphy.com/gifs/futurama-happy-new-year-years-eve-qgpO6MRDbGYuc',
-  'https://giphy.com/gifs/TdwziQPhbNAzK',
-  'https://giphy.com/gifs/stupid-futurama-fry-8iOzrJARYNURO',
-  'https://giphy.com/gifs/correct-technically-yes-14bDMRUYVrzOIo',
-  'https://giphy.com/gifs/futurama-funny-TLyhdPMHc7s7S',
-  'https://giphy.com/gifs/dancing-happy-post-az3XlqP9zQ9ry'
+  'https://media4.giphy.com/media/qgpO6MRDbGYuc/giphy.gif?cid=790b7611e1a955bbfc8aebc8c3d5331bd75a7d4c9d4ccf8f&rid=giphy.gif&ct=g',
+  'https://media1.giphy.com/media/TdwziQPhbNAzK/giphy.gif?cid=790b7611cf1326aa9f28c505067bf08b3addf4af650321b5&rid=giphy.gif&ct=g',
+  'https://media1.giphy.com/media/8iOzrJARYNURO/giphy.gif?cid=790b76111c9b6682911dbf76ba7662bf10d51e94981f927c&rid=giphy.gif&ct=g',
+  'https://media3.giphy.com/media/14bDMRUYVrzOIo/giphy.gif?cid=790b761194f363d5f7c666cf0c281a8bd58a8c1b884966a1&rid=giphy.gif&ct=g',
+  'https://media2.giphy.com/media/TLyhdPMHc7s7S/giphy.gif?cid=790b7611ffd6bf197abdcf2b46de4a570a181eba4bb7dc2f&rid=giphy.gif&ct=g',
+  'https://media2.giphy.com/media/az3XlqP9zQ9ry/giphy.gif?cid=790b761143eed96c76ce28b861f128c38c47d482660e6036&rid=giphy.gif&ct=g'
 ]
 
 const App = () => {
