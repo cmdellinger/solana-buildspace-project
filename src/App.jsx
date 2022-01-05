@@ -17,10 +17,13 @@ const TEST_GIFS = [
 
 const App = () => {
 
-  // initial state for wallet address
+  // States
+  //   wallet address
   const [walletAddress, setWalletAddress] = useState(null);
-  // initial state for GIF submit button
+  //   GIF submit button
   const [inputValue, setInputValue] = useState('');
+  //   GIF list
+  const [gifList, setGifList] = useState([]);
 
   /*
    * This function holds the logic for deciding if a Phantom Wallet is
@@ -69,13 +72,15 @@ const App = () => {
     }
   };
 
-    /*
+  /*
    * This function is currently a placeholder to send
    * the GIF link to the Solana program
    */
   const sendGif = async () => {
     if (inputValue.length > 0) {
       console.log('Gif link:', inputValue);
+      setGifList([...gifList, inputValue]);
+      setInputValue('');
     } else {
       console.log('Empty input. Try again.');
     }
@@ -125,7 +130,8 @@ const App = () => {
           <button type="submit" className="cta-button submit-gif-button">Submit</button>
         </form>
       <div className="gif-grid">
-        {TEST_GIFS.map(gif => (
+        {/* Map through gifList instead of TEST_GIFS */}
+        {gifList.map((gif) => (
           <div className="gif-item" key={gif}>
             <img src={gif} alt={gif} />
           </div>
@@ -135,8 +141,8 @@ const App = () => {
   );
 
   /*
-   * When our component first mounts, let's check to see if we have a connected
-   * Phantom Wallet
+   * On first mount, check for a connected Phantom Wallet
+   * 
    */
   useEffect(() => {
     const onLoad = async () => {
@@ -145,6 +151,21 @@ const App = () => {
     window.addEventListener('load', onLoad);
     return () => window.removeEventListener('load', onLoad);
   }, []);
+
+  /*
+   * fetch GIF list if a wallet is connected
+   *  ***currently using test data***
+   */
+  useEffect(() => {
+    if (walletAddress) {
+      console.log('Fetching GIF list...');
+      
+      // Call Solana program here.
+
+      // Set state
+      setGifList(TEST_GIFS);
+    }
+  }, [walletAddress]);
 
   return (
     <div className="App">
