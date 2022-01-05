@@ -17,8 +17,10 @@ const TEST_GIFS = [
 
 const App = () => {
 
-  // State
+  // initial state for wallet address
   const [walletAddress, setWalletAddress] = useState(null);
+  // initial state for GIF submit button
+  const [inputValue, setInputValue] = useState('');
 
   /*
    * This function holds the logic for deciding if a Phantom Wallet is
@@ -61,6 +63,15 @@ const App = () => {
   const connectWallet = async () => {
     const { solana } = window;
 
+  /*
+   * This function holds the logic to update the GIF input
+   * 
+   */
+  const onInputChange = (event) => {
+    const { value } = event.target;
+    setInputValue(value);
+  };
+
     if (solana) {
       const response = await solana.connect();
       console.log('Connected with Public Key:', response.publicKey.toString());
@@ -93,7 +104,12 @@ const App = () => {
             event.preventDefault();
           }}
         >
-          <input type="text" placeholder="Enter gif link!" />
+          <input
+            type="text"
+            placeholder="Enter gif link!"
+            value={inputValue}
+            onChange={onInputChange}
+          />
           <button type="submit" className="cta-button submit-gif-button">Submit</button>
         </form>
       <div className="gif-grid">
