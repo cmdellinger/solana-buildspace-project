@@ -62,6 +62,24 @@ const App = () => {
    */
   const connectWallet = async () => {
     const { solana } = window;
+    if (solana) {
+      const response = await solana.connect();
+      console.log('Connected with Public Key:', response.publicKey.toString());
+      setWalletAddress(response.publicKey.toString());
+    }
+  };
+
+    /*
+   * This function is currently a placeholder to send
+   * the GIF link to the Solana program
+   */
+  const sendGif = async () => {
+    if (inputValue.length > 0) {
+      console.log('Gif link:', inputValue);
+    } else {
+      console.log('Empty input. Try again.');
+    }
+  };
 
   /*
    * This function holds the logic to update the GIF input
@@ -70,13 +88,6 @@ const App = () => {
   const onInputChange = (event) => {
     const { value } = event.target;
     setInputValue(value);
-  };
-
-    if (solana) {
-      const response = await solana.connect();
-      console.log('Connected with Public Key:', response.publicKey.toString());
-      setWalletAddress(response.publicKey.toString());
-    }
   };
 
   /*
@@ -102,6 +113,7 @@ const App = () => {
         <form
           onSubmit={(event) => {
             event.preventDefault();
+            sendGif();
           }}
         >
           <input
