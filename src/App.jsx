@@ -1,9 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import twitterLogo from './assets/twitter-logo.svg';
 import './App.css';
-import idl from './idl.json';
 import { Connection, PublicKey, clusterApiUrl } from '@solana/web3.js';
 import { Program, Provider, web3 } from '@project-serum/anchor';
+
+import idl from './idl.json';
+
+// fix for `Buffer not defined` error in solana js conection
+import { Buffer } from 'buffer';
+window.Buffer = Buffer;
 
 /*
   * Constants
