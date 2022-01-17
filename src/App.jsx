@@ -125,7 +125,6 @@ const App = () => {
 
   /*
    * This function holds the logic to update the GIF input
-   * 
    */
   const getProvider = () => {
     const connection = new Connection(network, opts.preflightCommitment);
@@ -133,6 +132,30 @@ const App = () => {
       connection, window.solana, opts.preflightCommitment,
     );
     return provider;
+  }
+
+  /*
+   * This function basically to call `startStuffOff`
+   */
+  const createGifAccount = async () => {
+    try {
+      const provider = getProvider();
+      const program = new Program(idl, programID, provider);
+      console.log("ping")
+      await program.rpc.startStuffOff({
+        accounts: {
+          baseAccount: baseAccount.publicKey,
+          user: provider.wallet.publicKey,
+          systemProgram: SystemProgram.programId,
+        },
+        signers: [baseAccount]
+      });
+      console.log("Created a new BaseAccount w/ address:", baseAccount.publicKey.toString())
+      await getGifList();
+
+    } catch(error) {
+      console.log("Error creating BaseAccount account:", error)
+    }
   }
 
   /*
@@ -152,7 +175,20 @@ const App = () => {
    * We want to render the gif grid if user has connected
    * their wallet to our app.
    */
-  const renderConnectedContainer = () => (
+  const renderConnectedContainer = () => {
+    // If we hit this, it means the program account hasn't been initialized.
+    if (gifList === null) {
+      return (
+        <div className="connected-container">
+          <button className="cta-button submit-gif-button" onClick={createGifAccount}>
+            Do One-Time Initialization For GIF Program Account
+          </button>
+        </div>
+      )
+    } 
+	  // Otherwise, we're good! Account exists. User can submit GIFs.
+	  else {
+    return(
     <div className="connected-container">
         {/* Input and button for submitting pictures */}
         <form
@@ -170,15 +206,17 @@ const App = () => {
           <button type="submit" className="cta-button submit-gif-button">Submit</button>
         </form>
       <div className="gif-grid">
-        {/* Map through gifList instead of TEST_GIFS */}
-        {gifList.map((gif) => (
-          <div className="gif-item" key={gif}>
-            <img src={gif} alt={gif} />
-          </div>
+					{/* We use index as the key instead, also, the src is now item.gifLink */}
+          {gifList.map((item, index) => (
+            <div className="gif-item" key={index}>
+              <img src={item.gifLink} />
+            </div>
         ))}
       </div>
     </div>
-  );
+    )
+    }
+  };
 
   /*
    * On first mount, check for a connected Phantom Wallet
