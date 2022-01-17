@@ -2,8 +2,30 @@ import React, { useEffect, useState } from 'react';
 import twitterLogo from './assets/twitter-logo.svg';
 import './App.css';
 import idl from './idl.json';
+import { Connection, PublicKey, clusterApiUrl } from '@solana/web3.js';
+import { Program, Provider, web3 } from '@project-serum/anchor';
 
-// Constants
+/*
+  * Constants
+  */
+// SystemProgram is a reference to the Solana runtime!
+const { SystemProgram, Keypair } = web3;
+
+// Create a keypair for the account that will hold the GIF data.
+let baseAccount = Keypair.generate();
+
+// Get our program's id from the IDL file.
+const programID = new PublicKey(idl.metadata.address);
+
+// Set our network to devnet.
+const network = clusterApiUrl('devnet');
+
+// Controls how we want to acknowledge when a transaction is "done".
+const opts = {
+  preflightCommitment: "processed"
+}
+
+// twitter information for tagline
 const TWITTER_HANDLE = 'gte539z';
 const TWITTER_LINK = `https://twitter.com/${TWITTER_HANDLE}`;
 
@@ -95,6 +117,18 @@ const App = () => {
     const { value } = event.target;
     setInputValue(value);
   };
+
+  /*
+   * This function holds the logic to update the GIF input
+   * 
+   */
+  const getProvider = () => {
+    const connection = new Connection(network, opts.preflightCommitment);
+    const provider = new Provider(
+      connection, window.solana, opts.preflightCommitment,
+    );
+    return provider;
+  }
 
   /*
    * We want to render this UI when the user hasn't connected
