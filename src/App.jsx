@@ -189,16 +189,26 @@ const App = () => {
 
   /*
    * fetch GIF list if a wallet is connected
-   *  ***currently using test data***
    */
+  const getGifList = async() => {
+    try {
+      const provider = getProvider();
+      const program = new Program(idl, programID, provider);
+      const account = await program.account.baseAccount.fetch(baseAccount.publicKey);
+      
+      console.log("Got the account", account)
+      setGifList(account.gifList)
+
+    } catch (error) {
+      console.log("Error in getGifList: ", error)
+      setGifList(null);
+    }
+  }
+
   useEffect(() => {
     if (walletAddress) {
       console.log('Fetching GIF list...');
-      
-      // Call Solana program here.
-
-      // Set state
-      setGifList(TEST_GIFS);
+      getGifList()
     }
   }, [walletAddress]);
 
